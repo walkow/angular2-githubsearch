@@ -13,8 +13,22 @@ export class GithubService {
         console.log('gh service run');
     }
 
+    getAuthCreditenials() {
+        return 'client_id=' + this.client_id + '&client_secret=' + this.client_secret;
+    }
+
     getUser() {
-        return this._http.get('https://api.github.com/users/' + this.username)
+        return this._http.get('https://api.github.com/users/' + this.username + '?' + this.getAuthCreditenials())
         .map(res => res.json());
     }
+
+    getRepos() {
+        return this._http.get('https://api.github.com/users/' + this.username  + '/repos' + '?' + this.getAuthCreditenials())
+        .map(res => res.json());
+    }   
+
+    updateUsername(username:string) {
+        this.username = username;
+    } 
+
 }
